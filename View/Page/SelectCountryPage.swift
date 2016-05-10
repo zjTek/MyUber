@@ -9,6 +9,8 @@
 import UIKit
 
 class SelectCountryPage: BasePage {
+    
+    @IBOutlet var tableView:UITableView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
