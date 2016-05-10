@@ -9,5 +9,7 @@
 import UIKit
 
 class CountryInfo: BaseInfo {
-
+    
+    var name:String!
+    var code:String!
 }

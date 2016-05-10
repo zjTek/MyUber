@@ -9,12 +9,24 @@
 import UIKit
 
 class UserCenterPage: BasePage {
+    
+    var owner : BasePage?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
+    
+    @IBAction func doSetting()
+    {
+        let own = self.owner as! HomePage
+        
+        
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -8,28 +8,58 @@
 
 import UIKit
 
-class UserInfoPage: BasePage {
+class UserInfoPage: BasePage, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @IBOutlet var avatar:UIImageView!
+    @IBOutlet var backUserView:UIView!
+    
+    
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        
+        self.title = "建立基本资料"
+        
+        backView.layer.masksToBounds = true
+        backView.layer.cornerRadius = 5
+        
+        setNavigationItem("Back.png", selector: #selector(UserInfoPage.doBack), isRight: false)
+        setNavigationItem("下一步", selector: #selector(UserInfoPage.doRight), isRight: true)
 
-        // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func doSetAvatar(sender:UIButton)
+    {
+        let picker = UIImagePickerController()
+        
+        picker.sourceType = .PhotoLibrary
+        picker.delegate = self
+        
+        self.presentViewController(picker, animated: true, completion: nil)
+        
+    }
+    
+    override func doRight()
+    {
+        let page = AddPayPage()
+        
+        self.navigationController?.pushViewController(page, animated: true)
+    }
+    
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
+    {
+        avatar.image = image
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+       
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

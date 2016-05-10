@@ -8,28 +8,74 @@
 
 import UIKit
 
-class YinLianPage: BasePage {
+class YinLianPage: BasePage,UPPayPluginDelegate, NSURLConnectionDataDelegate  {
 
-    override func viewDidLoad() {
+    var responseData:NSMutableData?
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+    }
+    
+    
+    @IBAction func doPay()
+    {
+        let url = NSURL(string: YLTnURl)
+    
+        startPay(url!)
+    
+    }
+    
+    func startPay(url:NSURL) -> Void {
+        let urlRequest = NSURLRequest(URL: url)
+        
+        let connect = NSURLConnection(request: urlRequest, delegate: self)
+        
+        connect?.start()
+    }
+    
+    // recall methods
+    func UPPayPluginResult(result: String!) {
+        Log(result)
+    }
+    
+    //MARK:---URLConnectionDelegate Methods
+    
+    func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
+        
+        let urlResponse = response as! NSHTTPURLResponse
+        
+        if urlResponse.statusCode != 200 {
+            Log("error status code")
+        }else{
+            responseData = NSMutableData()
+        }
+    }
+    
+    func connection(connection: NSURLConnection, didReceiveData data: NSData) {
+        
+        responseData?.appendData(data)
+    }
+    
+    
+    func connectionDidFinishLoading(connection: NSURLConnection) {
+        let result = String(data: responseData!, encoding: NSUTF8StringEncoding)
+        
+        if result != nil {
+            PayPlugin.startPay(result, mode: "01", viewController: self, delegate: self)
+        }
+    }
+    
+    func connection(connection: NSURLConnection, didFailWithError error: NSError) {
+        Log(error.localizedFailureReason!)
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  
 }

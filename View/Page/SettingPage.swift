@@ -9,27 +9,29 @@
 import UIKit
 
 class SettingPage: BasePage {
+    
+    @IBOutlet var userBackView:UIView?
+    
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        
+        setNavigationItem("Close.png", selector: #selector(self.doBack), isRight: false)
+        
+        var frame = userBackView!.frame
+        frame.origin.y = 64
+        userBackView?.frame = frame
+        self.view.addSubview(userBackView!)
 
-        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  
 }

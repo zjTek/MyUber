@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "UPPayPluginDelegate.h"
 
 @interface PayPlugin : NSObject
+
++(BOOL)startPay:(NSString *)tn mode:(NSString *)mode viewController:(UIViewController *)viewController delegate:(id<UPPayPluginDelegate>)delegate;
 
 @end

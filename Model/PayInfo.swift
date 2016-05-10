@@ -9,5 +9,7 @@
 import UIKit
 
 class PayInfo: BaseInfo {
-
+    
+    var name:String!
+    var icon:String!
 }

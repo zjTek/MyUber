@@ -7,4 +7,16 @@
 //
 
 import Foundation
+import UIKit
+
+func isSytemiOS8() -> Bool {
+    
+    let version:NSString = UIDevice.currentDevice().systemVersion as NSString
+    
+    if version.floatValue - IOS8 < 0.001{
+        return true
+    }
+    
+    return false
+}
 

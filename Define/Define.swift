@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 let LoadingTip = "加载中...."
-let IOS:Float = 8.0
+let IOS8:Float = 8.0
 let ScreenHeight = UIScreen().bounds.size.height
 
 let PanWidth:CGFloat = 100
